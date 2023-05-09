@@ -1,0 +1,27 @@
+.nav-item a {
+    color: #ffffff;
+    font-size: 22px;
+}
+.nav-item a:hover {
+    color: white;
+}
+#offcanvasNavbar {
+    width: 240px;
+}
+.nav-item:hover {
+    background-color: #0a53be;
+}
+.nav-item {
+    width: 239px;
+    transition: background-color 0.3s linear;
+    padding: 10px;
+}
+.btn-close {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.img-thumbnail {
+    width: 100px;
+    margin-right: 10px;
+}

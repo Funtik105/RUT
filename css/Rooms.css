@@ -1,0 +1,60 @@
+.nav-item a {
+    color: #ffffff;
+    font-size: 22px;
+}
+.nav-item a:hover {
+    color: white;
+}
+.navbar navbar-light .offcanvas offcanvas-start{
+    height: 200px;
+}
+#offcanvasNavbar {
+    width: 240px;
+}
+.img-thumbnail {
+    width: 100px;
+}
+.create-table a {
+    text-decoration: none;
+    color: black;
+}
+.create-table a:hover {
+    color: #0a53be;
+}
+.nav-item img{
+    width: 50px;
+}
+.nav-item li {
+    display: flex;
+    justify-content: flex-start;
+}
+.page-item active{
+    background-color: #163E73;
+}
+.page-link {
+    color: #163E73;
+}
+.btn {
+    background-color: #163E73;
+    border: none;
+}
+.btn:hover {
+    background-color: #0a53be;
+    transition: background-color 0.3s linear;
+}
+.card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.nav-item:hover {
+    background-color: #0a53be;
+}
+.nav-item {
+    width: 239px;
+    transition: background-color 0.3s linear;
+    padding: 10px;
+}
+.btn-close {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

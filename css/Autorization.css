@@ -1,0 +1,36 @@
+.autorization .form-floating{
+    margin-top: 200px;
+}
+#con {
+    width: 500px;
+}
+.container {
+    width: 700px;
+    height: 500px;
+}
+.card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    top: 28%;
+    border-radius: 13px;
+}
+.btn {
+    width: 300px;
+    background-color: #163E73;
+}
+h1{
+    color: #163E73;
+    text-align: left;
+    padding-bottom: 10px;
+}
+p {
+    color: #163E73;
+    text-align: left;
+    font-size: 20px;
+}
+a {
+    text-decoration: none;
+    color: #949494;
+}
+a:hover {
+    color: #797979;
+}

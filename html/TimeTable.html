@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>timeTable</title>
+  <link rel="stylesheet" href="../css/bootstrap-grid.css">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/TimeTable.css">
+</head>
+<body>
+
+<nav class="navbar navbar-light ">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header" style="background-color: #163E73">
+        <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body" style="background-color: #163E73">
+        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 ">
+          <li class="nav-item" style="background-color: #0a53be;">
+            <a class="navbar-brand" href="TimeTable.html">
+              <img src="../img/Timetable_icon.png" width="50" height="50" class="d-inline-block" alt="">
+              Расписание
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="navbar-brand" href="Users.html">
+              <img src="../img/Users_icon.png" width="50" height="50" class="d-inline-block" alt="">
+              Пользователи
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="navbar-brand" href="Rooms.html">
+              <img src="../img/Audience_icon.png" width="50" height="50" class="d-inline-block" alt="">
+              Аудитории
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="navbar-brand" href="News.html">
+              <img src="../img/News_icon.png" width="50" height="50" class="d-inline-block" alt="">
+              Новости
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="navbar-brand" href="Marks.html">
+              <img src="../img/Marks_icon.png" width="50" height="50" class="d-inline-block" alt="">
+              Оценки
+            </a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="input-group rounded">
+    <input type="search" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
+    <span class="input-group-text border-0" id="search-addon">
+      <a href="#" style="text-decoration: none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg>
+      </a>
+    </span>
+    <span class="input-group-text border-0" id="add" style="margin-left: 30px">
+      <a href="#" style="text-decoration: none"
+         data-bs-toggle="tooltip" data-bs-placement="bottom"
+         data-bs-custom-class="custom-tooltip"
+         data-bs-title="Здесь вы можете добавить новую ....">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+      <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </svg>
+      </a>
+    </span>
+    <span class="input-group-text border-0" id="filtr" style="margin-left: 10px">
+      <a href="#" style="text-decoration: none"
+         data-bs-toggle="tooltip" data-bs-placement="bottom"
+         data-bs-custom-class="custom-tooltip"
+         data-bs-title="Здесь вы можете отфильтровать">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+          <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+        </svg>
+      </a>
+    </span>
+  </div><br>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Неделя</th>
+      <th scope="col">День</th>
+      <th scope="col">Пара</th>
+      <th scope="col">Группа</th>
+      <th scope="col">Предемет</th>
+      <th scope="col">Преподаватель</th>
+      <th scope="col">Расположение</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>1</td>
+      <td>10</td>
+      <td>3</td>
+      <td>УВП-211</td>
+      <td>Цифровые технологии</td>
+      <td>Городников А.И.</td>
+      <td>1328</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>2</td>
+      <td>11</td>
+      <td>4</td>
+      <td>УВП-211</td>
+      <td>Теория веростяностей</td>
+      <td>Левчук Т.В.</td>
+      <td>1328</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>2</td>
+      <td>12</td>
+      <td>1</td>
+      <td>УВП-211</td>
+      <td>Технологии хранения данных</td>
+      <td>Новиков А.И.</td>
+      <td>1520</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item disabled">
+        <a class="page-link">Страницы:</a>
+      </li>
+      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+      <li class="page-item" aria-current="page">
+        <a class="page-link" href="#">2</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Следующая</a>
+      </li>
+    </ul>
+  </nav>
+
+  </div>
+
+<script src="../js/bootstrap.bundle.js"></script>
+<script>
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
+</body>
+</html>

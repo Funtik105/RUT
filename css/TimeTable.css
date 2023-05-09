@@ -28,6 +28,7 @@
 .btn {
     background-color: #163E73;
     transition: background-color 0.3s linear;
+    border: none;
 }
 .btn:hover {
     background-color: #0a53be;

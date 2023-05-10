@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/Users.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 <body>
 <nav class="navbar navbar-light " style="background-color: #ffffff;">
@@ -54,6 +55,8 @@
     </div>
 </nav>
 <div class="container">
+
+    <div class="btn-up btn-up_hide"></div>
 
     <div class="input-group rounded">
         <input type="search" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
@@ -339,5 +342,6 @@
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
+<script src="../js/home.js"></script>
 </body>
 </html>

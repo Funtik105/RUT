@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 <body>
-<nav class="navbar navbar-light " style="background-color: #ffffff;">
+<nav class="navbar navbar-light">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -68,11 +68,26 @@
             </a>
         </span>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    </div><br>
+    <div class="input-group">
+
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #ffffff; color: black">
+                Сортировать
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Сортировать по ID</a></li>
+                <li><a class="dropdown-item" href="#">Сортировать по ФИО</a></li>
+                <li><a class="dropdown-item" href="#">Сортировать по группе</a></li>
+                <li><a class="dropdown-item" href="#">Сортировать по табельному номеру</a></li>
+            </ul>
+        </div>
+
+        <button type="button" class="btn btn-primary position-absolute top-0 end-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Добавить
         </button>
 
-    </div><br>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

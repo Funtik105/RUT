@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 <body>
-
+<!--Start NavBar-->
 <nav class="navbar navbar-light ">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -55,12 +55,14 @@
     </div>
   </div>
 </nav>
+<!--End NavBar-->
 
 <div class="container">
 
-  <div class="btn-up btn-up_hide"></div>
-
+  <div class="btn-up btn-up_hide"></div> <!--Button for up scrolling-->
+  <!--Start Container for search panel-->
   <div class="input-group rounded">
+    <!-- Start Search and icon-->
     <input type="search" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
     <span class="input-group-text border-0" id="search-addon">
       <a href="#" style="text-decoration: none">
@@ -69,17 +71,17 @@
         </svg>
       </a>
     </span>
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <!-- End Search and icon-->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <!--Add button Add-->
       Добавить
     </button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="margin-left: 15px">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="margin-left: 15px"> <!--Add button Filtr-->
       Фильтры
     </button>
-
   </div><br>
+  <!--Start Container for search panel-->
 
-  <!-- Modal -->
+  <!--Start Modal window for add timetable-->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -125,7 +127,9 @@
       </div>
     </div>
   </div>
+  <!--End Modal window for add timetable-->
 
+  <!--Create structure the table-->
   <table class="table">
     <thead>
     <tr>
@@ -139,6 +143,9 @@
       <th scope="col">Расположение</th>
     </tr>
     </thead>
+    <!--End structure the table-->
+
+    <!--Start Description the table-->
     <tbody>
     <tr>
       <th scope="row">1</th>
@@ -172,7 +179,9 @@
     </tr>
     </tbody>
   </table>
+  <!--Start Description the table-->
 
+  <!--Start Description the pages in end page-->
   <nav aria-label="...">
     <ul class="pagination">
       <li class="page-item disabled">
@@ -188,8 +197,8 @@
       </li>
     </ul>
   </nav>
-
-  </div>
+  <!--End Description the pages in end page-->
+</div>
 
 <script src="../js/bootstrap.bundle.js"></script>
 <script>

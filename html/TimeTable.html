@@ -72,14 +72,32 @@
       </a>
     </span>
     <!-- End Search and icon-->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <!--Add button Add-->
-      Добавить
-    </button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" style="margin-left: 15px"> <!--Add button Filtr-->
-      Фильтры
-    </button>
   </div><br>
   <!--Start Container for search panel-->
+
+  <div class="group">
+
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #ffffff; color: black">
+        Сортировать
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Сортировать по ID</a></li>
+        <li><a class="dropdown-item" href="#">Сортировать по неделе</a></li>
+        <li><a class="dropdown-item" href="#">Сортировать по паре</a></li>
+        <li><a class="dropdown-item" href="#">Сортировать по группе</a></li>
+        <li><a class="dropdown-item" href="#">Сортировать по предмету</a></li>
+        <li><a class="dropdown-item" href="#">Сортировать по преподавателю</a></li>
+        <li><a class="dropdown-item" href="#">Сортировать по аудитории</a></li>
+      </ul>
+
+      <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Добавить
+      </button>
+
+    </div>
+
+  </div><br>
 
   <!--Start Modal window for add timetable-->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,12 +1,25 @@
 <?php
 
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-$jsonData = file_get_contents("http://109.120.181.142/api/locations/");
+$jsonData = file_get_contents("http://109.120.181.142/api/locations?page=". $current_page);
 
 // Декодирование JSON-данных в ассоциативный массив
 $data = json_decode($jsonData, true);
 
 $locationNumbers = array_column($data['hydra:member'], 'locationNumber');
+
+$total_pages = $data['hydra:view']['hydra:last'];
+
+
+// Вывод ссылок на страницы
+for ($page = 1; $page <= $total_pages; $page++) {
+    // Проверка, является ли текущая страница активной
+    $active_class = ($page == $current_page) ? 'active' : '';
+
+}
+
+
 
 
 //echo $data['@id'] . '<br>';
@@ -191,11 +204,13 @@ $locationNumbers = array_column($data['hydra:member'], 'locationNumber');
             <li class="page-item disabled">
                 <a class="page-link">Страницы:</a>
             </li>
-            <li class="page-item active"><a class="page-link" href="page">1</a></li>
-            <li class="page-item" aria-current="page">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item active"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=1">1</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=2">2</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=3">3</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=4">4</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=5">5</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=6">6</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=7">7</a></li>
             <li class="page-item">
                 <a class="page-link" href="#">Следующая</a>
             </li>

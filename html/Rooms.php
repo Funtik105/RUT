@@ -1,3 +1,21 @@
+<?php
+
+
+$jsonData = file_get_contents("http://109.120.181.142/api/locations/");
+
+// Декодирование JSON-данных в ассоциативный массив
+$data = json_decode($jsonData, true);
+
+$locationNumbers = array_column($data['hydra:member'], 'locationNumber');
+
+
+//echo $data['@id'] . '<br>';
+//echo $data['@type'] . '<br>';
+//echo $data['locationNumber'] . '<br>';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -26,7 +44,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-brand" href="Users.html">
+                        <a class="navbar-brand" href="Users.php">
                             <img src="../img/Users_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Пользователи
                         </a>
@@ -151,82 +169,21 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-4 g-4 text-center">
-        <div class="col">
-            <div class="card">
-                <img src="../img/aud.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Аудитория 1308А</h5>
-                    <p class="card-text">Аудитория расчитана на небольшле количество студентов</p>
-                    <p class="card-text" style="color: red">Статус: Занята до 16.05.2023</p>
-                    <p class="card-text"></p>
-                    <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
+        <?php foreach ($locationNumbers as $item) {
+            ?>
+            <div class="col">
+                <div class="card">
+                    <img src="../img/aud.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo "Аудитория №" . $item . "<br>"; ?></h5>
+                        <p class="card-text"></p>
+                        <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="../img/aud.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Аудитория 1328</h5>
-                    <p class="card-text">Аудитория расчитана на практические и лабароторные работы за компьютером</p>
-                    <p class="card-text" style="color: green">Статус: Cвободно</p>
-                    <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="../img/aud.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Аудитория 1308А</h5>
-                    <p class="card-text">Аудитория расчитана на небольшле количество студентов</p>
-                    <p class="card-text" style="color: red">Статус: Занята до 16.05.2023</p>
-                    <p class="card-text"></p>
-                    <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="../img/aud.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Аудитория 1328</h5>
-                    <p class="card-text">Аудитория расчитана на практические и лабароторные работы за компьютером</p>
-                    <p class="card-text" style="color: green">Статус: Cвободно</p>
-                    <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="../img/aud.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="../img/aud.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="../img/aud.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
-                </div>
-            </div>
-        </div>
+        <?php
+        }
+        ?>
     </div>
     <br>
     <nav aria-label="...">
@@ -234,7 +191,7 @@
             <li class="page-item disabled">
                 <a class="page-link">Страницы:</a>
             </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active"><a class="page-link" href="page">1</a></li>
             <li class="page-item" aria-current="page">
                 <a class="page-link" href="#">2</a>
             </li>

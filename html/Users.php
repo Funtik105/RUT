@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -33,7 +36,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-brand" href="Rooms.html">
+                        <a class="navbar-brand" href="Rooms.php">
                             <img src="../img/Audience_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Аудитории
                         </a>

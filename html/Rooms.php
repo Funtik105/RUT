@@ -33,7 +33,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Rooms</title>
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/Rooms.css">
@@ -69,7 +69,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-brand" href="News.html">
+                        <a class="navbar-brand" href="News.php">
                             <img src="../img/News_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Новости
                         </a>
@@ -100,7 +100,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
     <div class="btn-up btn-up_hide"></div>
 
     <div class="input-group rounded">
-        <input type="search" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
+        <input type="search" id="searchbar" onkeyup="search_rooms()" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
             <a href="#" style="text-decoration: none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -180,8 +180,62 @@ for ($page = 1; $page <= $total_pages; $page++) {
             </div>
         </div>
     </div>
+    <?php foreach ($locationNumbers as $item) {
+    ?>
+    <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление аудитории</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" value="<?php echo $item ?>" placeholder="name@example.com">
+                        <label for="floatingInput">Название</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Описание</label>
+                    </div>
+                    <select class="form-select mb-3" aria-label="Default select example">
+                        <option selected>Выбрать тип аудитории</option>
+                        <option value="1">Лекционная</option>
+                        <option value="2">Практическая</option>
+                        <option value="3">Лабараторная</option>
+                    </select>
+                    <label for="customRange1" class="form-label mb-3">Количество мест</label>
+                    <input type="range" class="form-range" id="customRange1" min="1" max="100" step="0.5">
+                    <label for="customRange1" class="form-label mb-3">Количество компьютеров</label>
+                    <input type="range" class="form-range" id="customRange2">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" >
+                        <label class="form-check-label">Наличие компьютеров</label>
 
-    <div class="row row-cols-1 row-cols-md-4 g-4 text-center">
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch">
+                        <label class="form-check-label">Наличие интерактивной доски</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch">
+                        <label class="form-check-label">Наличие проектора</label>
+                    </div>
+                    <div class="mb-3" style="padding-top: 15px">
+                        <input class="form-control" type="file" id="formFile">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary mx-auto">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <?php
+    }
+    ?>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
         <?php foreach ($locationNumbers as $item) {
             ?>
             <div class="col">
@@ -189,8 +243,8 @@ for ($page = 1; $page <= $total_pages; $page++) {
                     <img src="../img/aud.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo "Аудитория №" . $item . "<br>"; ?></h5>
-                        <p class="card-text"></p>
-                        <button type="button" class="btn btn-primary btn-lg">Подробнее</button>
+                        <p class="card-text">Статус: Свободно</p>
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-target="#exampleModal5" data-bs-toggle="modal">Подробнее</button>
                     </div>
                 </div>
             </div>
@@ -223,6 +277,23 @@ for ($page = 1; $page <= $total_pages; $page++) {
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    // JavaScript code
+    function search_rooms() {
+        let input = document.getElementById('searchbar').value
+        input=input.toLowerCase();
+        let x = document.getElementsByClassName('col');
+
+        for (i = 0; i < x.length; i++) {
+            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display="none";
+            }
+            else {
+                x[i].style.display="list-item";
+            }
+        }
+    }
+
 </script>
 </body>
 </html>

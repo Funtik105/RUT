@@ -1,3 +1,9 @@
+<?php
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+$jsonData = file_get_contents("http://109.120.181.142/api/");
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>

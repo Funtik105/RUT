@@ -1,4 +1,16 @@
+<?php
 
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+$jsonData = file_get_contents("http://109.120.181.142/api/users?page=". $current_page);
+
+// Декодирование JSON-данных в ассоциативный массив
+$data = json_decode($jsonData, true);
+
+$locationNumbers = array_column($data['hydra:member'], 'locationNumber');
+
+$total_pages = $data['hydra:member'];
+?>
 
 
 <!DOCTYPE html>
@@ -42,7 +54,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-brand" href="News.html">
+                        <a class="navbar-brand" href="News.php">
                             <img src="../img/News_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Новости
                         </a>

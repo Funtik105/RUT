@@ -162,7 +162,7 @@ $jsonData = file_get_contents("http://109.120.181.142/api/");
       </div>
     </div>
   </div>
-  <br></br>
+  <br>
   <nav aria-label="">
     <ul class="pagination">
       <li class="page-item disabled">

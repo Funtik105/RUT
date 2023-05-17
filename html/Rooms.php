@@ -100,7 +100,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
     <div class="btn-up btn-up_hide"></div>
 
     <div class="input-group rounded">
-        <input type="search" id="searchbar" onkeyup="search_rooms()" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
+        <input type="search" id="searchbar" onkeyup="searchRooms()" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
             <a href="#" style="text-decoration: none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -118,8 +118,8 @@ for ($page = 1; $page <= $total_pages; $page++) {
                 Сортировать
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Сортировать названию</a></li>
-                <li><a class="dropdown-item" href="#">Сортировать по занятости</a></li>
+                <li><a class="dropdown-item" href="#" onclick="sortByName()">Сортировать названию</a></li>
+                <li><a class="dropdown-item" href="#" onclick="sortByAvailability()">Сортировать по занятости</a></li>
             </ul>
 
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -182,7 +182,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
     </div>
     <?php foreach ($locationNumbers as $item) {
     ?>
-    <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal<?php echo $item; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -238,13 +238,13 @@ for ($page = 1; $page <= $total_pages; $page++) {
     <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
         <?php foreach ($locationNumbers as $item) {
             ?>
-            <div class="col">
+            <div class="col" id="location-<?php echo $item; ?>">
                 <div class="card">
                     <img src="../img/aud.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo "Аудитория №" . $item . "<br>"; ?></h5>
                         <p class="card-text">Статус: Свободно</p>
-                        <button type="button" class="btn btn-primary btn-lg" data-bs-target="#exampleModal5" data-bs-toggle="modal">Подробнее</button>
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-target="#exampleModal<?php echo $item; ?>" data-bs-toggle="modal">Подробнее</button>
                     </div>
                 </div>
             </div>
@@ -258,18 +258,25 @@ for ($page = 1; $page <= $total_pages; $page++) {
             <li class="page-item disabled">
                 <a class="page-link">Страницы:</a>
             </li>
-            <li class="page-item active"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=2">2</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=3">3</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=4">4</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=5">5</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=6">6</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=7">7</a></li>
+            <?php
+
+            // Генерация элементов пагинации
+            for ($i = 1; $i <= 7; $i++) {
+                $current_page = $_GET['page']; // Текущая страница (ваша логика для получения текущей страницы)
+                $active_class = ($i == $current_page) ? "active" : ""; // Проверка, является ли $i текущей страницей
+                ?>
+                <li class="page-item <?php echo $active_class; ?>">
+                    <a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+                <?php
+            }
+            ?>
             <li class="page-item">
                 <a class="page-link" href="#">Следующая</a>
             </li>
         </ul>
     </nav>
+
 
 </div>
 
@@ -279,20 +286,76 @@ for ($page = 1; $page <= $total_pages; $page++) {
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
     // JavaScript code
-    function search_rooms() {
-        let input = document.getElementById('searchbar').value
-        input=input.toLowerCase();
-        let x = document.getElementsByClassName('col');
+    function searchRooms() {
+        var input = document.getElementById("searchbar").value.toLowerCase();
+        var cards = document.getElementsByClassName("col");
 
-        for (i = 0; i < x.length; i++) {
-            if (!x[i].innerHTML.toLowerCase().includes(input)) {
-                x[i].style.display="none";
-            }
-            else {
-                x[i].style.display="list-item";
+        for (var i = 0; i < cards.length; i++) {
+            var cardTitle = cards[i].querySelector(".card-title").textContent.toLowerCase();
+
+            if (cardTitle.includes(input)) {
+                cards[i].style.display = "block";
+            } else {
+                cards[i].style.display = "none";
             }
         }
     }
+
+    // Сортировка по названию
+    function sortByName() {
+        var cardsContainer = document.querySelector(".row-cols-1"); // Контейнер с карточками
+        var cards = Array.from(cardsContainer.getElementsByClassName("col")); // Массив карточек
+
+        cards.sort(function(a, b) {
+            var locationNumberA = parseInt(a.id.split("-")[1]);
+            var locationNumberB = parseInt(b.id.split("-")[1]);
+
+            // Сравнение по номеру аудитории (названию)
+            if (locationNumberA < locationNumberB) {
+                return -1;
+            } else if (locationNumberA > locationNumberB) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        // Перемещение карточек в новом порядке
+        for (var i = 0; i < cards.length; i++) {
+            cardsContainer.appendChild(cards[i]);
+        }
+    }
+
+    // Сортировка по занятости
+    function sortByAvailability() {
+        var cardsContainer = document.querySelector(".row-cols-1"); // Контейнер с карточками
+        var cards = Array.from(cardsContainer.getElementsByClassName("col")); // Массив карточек
+
+        cards.sort(function(a, b) {
+            var locationNumberA = parseInt(a.id.split("-")[1]);
+            var locationNumberB = parseInt(b.id.split("-")[1]);
+
+            // Ваша логика для сравнения по занятости (по статусу)
+
+            // Пример: сортировка по статусу "Свободно" или "Занято"
+            var statusA = a.querySelector(".card-text").textContent.trim();
+            var statusB = b.querySelector(".card-text").textContent.trim();
+
+            if (statusA === "Свободно" && statusB === "Занято") {
+                return -1;
+            } else if (statusA === "Занято" && statusB === "Свободно") {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+
+        // Перемещение карточек в новом порядке
+        for (var i = 0; i < cards.length; i++) {
+            cardsContainer.appendChild(cards[i]);
+        }
+    }
+
 
 </script>
 </body>

@@ -292,5 +292,6 @@ $total_pages = $data['hydra:view']['hydra:last'];
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
 <script src="../js/Rooms.js"></script>
+<script src="../js/home.js"></script>
 </body>
 </html>

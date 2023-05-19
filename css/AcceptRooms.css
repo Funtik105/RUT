@@ -1,0 +1,17 @@
+.img-thumbnail {
+    width: 100px;
+}
+.create-table a {
+    text-decoration: none;
+    color: black;
+}
+.create-table a:hover {
+    color: #0a53be;
+}
+.btn1:hover {
+    background-color: #0a53be;
+}
+.btn1 {
+    background-color: #163E73;
+    border: none;
+}

@@ -64,6 +64,13 @@ $total_pages = $data['hydra:member'];
                             <img src="../img/Marks_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Оценки
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="AcceptRooms.php">
+                            <img src="../img/Marks_icon.png" class="d-inline-block" alt="">
+                            Бронирование
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

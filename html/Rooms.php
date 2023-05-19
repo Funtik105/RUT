@@ -11,21 +11,6 @@ $locationNumbers = array_column($data['hydra:member'], 'locationNumber');
 
 $total_pages = $data['hydra:view']['hydra:last'];
 
-
-// Вывод ссылок на страницы
-for ($page = 1; $page <= $total_pages; $page++) {
-    // Проверка, является ли текущая страница активной
-    $active_class = ($page == $current_page) ? 'active' : '';
-
-}
-
-
-
-
-//echo $data['@id'] . '<br>';
-//echo $data['@type'] . '<br>';
-//echo $data['locationNumber'] . '<br>';
-
 ?>
 
 
@@ -36,6 +21,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
     <title>Rooms</title>
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/Rooms.css">
 </head>
 <body>
@@ -63,7 +49,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
                         </a>
                     </li>
                     <li class="nav-item" style="background-color: #0a53be;">
-                        <a class="navbar-brand" href="Rooms.html">
+                        <a class="navbar-brand" href="Rooms.php">
                             <img src="../img/Audience_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Аудитории
                         </a>
@@ -78,6 +64,12 @@ for ($page = 1; $page <= $total_pages; $page++) {
                         <a class="navbar-brand" href="Marks.html">
                             <img src="../img/Marks_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Оценки
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="AcceptRooms.php">
+                            <img src="../img/Marks_icon.png" class="d-inline-block" alt="">
+                            Бронирование
                         </a>
                     </li>
                     <li class="nav-item position-absolute bottom-0">
@@ -102,7 +94,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
     <div class="input-group rounded">
         <input type="search" id="searchbar" onkeyup="searchRooms()" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-            <a href="#" style="text-decoration: none">
+            <a href="#" style="text-decoration: none" id="liveToastBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
@@ -110,6 +102,20 @@ for ($page = 1; $page <= $total_pages; $page++) {
         </span>
 
     </div><br>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../img/Audience_icon.png" class="rounded me-2" alt="..." style="width: 50px;">
+                <strong class="me-auto">Броинрование</strong>
+                <small>1 минуту назад</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Новое бронирование аудитории
+            </div>
+        </div>
+    </div>
 
     <div class="group">
 
@@ -261,8 +267,9 @@ for ($page = 1; $page <= $total_pages; $page++) {
             <?php
 
             // Генерация элементов пагинации
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
             for ($i = 1; $i <= 7; $i++) {
-                $current_page = $_GET['page']; // Текущая страница (ваша логика для получения текущей страницы)
+                // Текущая страница (ваша логика для получения текущей страницы)
                 $active_class = ($i == $current_page) ? "active" : ""; // Проверка, является ли $i текущей страницей
                 ?>
                 <li class="page-item <?php echo $active_class; ?>">
@@ -277,86 +284,13 @@ for ($page = 1; $page <= $total_pages; $page++) {
         </ul>
     </nav>
 
-
 </div>
 
     <script src="../js/bootstrap.bundle.js"></script>
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
-    // JavaScript code
-    function searchRooms() {
-        var input = document.getElementById("searchbar").value.toLowerCase();
-        var cards = document.getElementsByClassName("col");
-
-        for (var i = 0; i < cards.length; i++) {
-            var cardTitle = cards[i].querySelector(".card-title").textContent.toLowerCase();
-
-            if (cardTitle.includes(input)) {
-                cards[i].style.display = "block";
-            } else {
-                cards[i].style.display = "none";
-            }
-        }
-    }
-
-    // Сортировка по названию
-    function sortByName() {
-        var cardsContainer = document.querySelector(".row-cols-1"); // Контейнер с карточками
-        var cards = Array.from(cardsContainer.getElementsByClassName("col")); // Массив карточек
-
-        cards.sort(function(a, b) {
-            var locationNumberA = parseInt(a.id.split("-")[1]);
-            var locationNumberB = parseInt(b.id.split("-")[1]);
-
-            // Сравнение по номеру аудитории (названию)
-            if (locationNumberA < locationNumberB) {
-                return -1;
-            } else if (locationNumberA > locationNumberB) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
-
-        // Перемещение карточек в новом порядке
-        for (var i = 0; i < cards.length; i++) {
-            cardsContainer.appendChild(cards[i]);
-        }
-    }
-
-    // Сортировка по занятости
-    function sortByAvailability() {
-        var cardsContainer = document.querySelector(".row-cols-1"); // Контейнер с карточками
-        var cards = Array.from(cardsContainer.getElementsByClassName("col")); // Массив карточек
-
-        cards.sort(function(a, b) {
-            var locationNumberA = parseInt(a.id.split("-")[1]);
-            var locationNumberB = parseInt(b.id.split("-")[1]);
-
-            // Ваша логика для сравнения по занятости (по статусу)
-
-            // Пример: сортировка по статусу "Свободно" или "Занято"
-            var statusA = a.querySelector(".card-text").textContent.trim();
-            var statusB = b.querySelector(".card-text").textContent.trim();
-
-            if (statusA === "Свободно" && statusB === "Занято") {
-                return -1;
-            } else if (statusA === "Занято" && statusB === "Свободно") {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
-
-        // Перемещение карточек в новом порядке
-        for (var i = 0; i < cards.length; i++) {
-            cardsContainer.appendChild(cards[i]);
-        }
-    }
-
-
 </script>
+<script src="../js/Rooms.js"></script>
 </body>
 </html>

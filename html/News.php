@@ -45,7 +45,7 @@ $jsonData = file_get_contents("http://109.120.181.142/api/");
             </a>
           </li>
           <li class="nav-item" style="background-color: #0a53be;">
-            <a class="navbar-brand" href="News.html">
+            <a class="navbar-brand" href="News.php">
               <img src="../img/News_icon.png" width="50" height="50" class="d-inline-block" alt="">
               Новости
             </a>
@@ -55,6 +55,13 @@ $jsonData = file_get_contents("http://109.120.181.142/api/");
               <img src="../img/Marks_icon.png" width="50" height="50" class="d-inline-block" alt="">
               Оценки
             </a>
+          </li>
+          <li class="nav-item">
+            <a class="navbar-brand" href="AcceptRooms.php">
+              <img src="../img/Marks_icon.png" class="d-inline-block" alt="">
+              Бронирование
+            </a>
+          </li>
         </ul>
       </div>
     </div>

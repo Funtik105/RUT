@@ -37,31 +37,31 @@ $total_pages = $data['hydra:member'];
                 <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 ">
                     <li class="nav-item">
                         <a class="navbar-brand" href="TimeTable.html">
-                            <img src="../img/Timetable_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                            <img src="../img/Timetable_icon.png" class="d-inline-block" alt="">
                             Рассписание
                         </a>
                     </li>
                     <li class="nav-item" style="background-color: #0a53be;">
-                        <a class="navbar-brand" href="Users.html">
-                            <img src="../img/Users_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                        <a class="navbar-brand" href="Users.php">
+                            <img src="../img/Users_icon.png" class="d-inline-block" alt="">
                             Пользователи
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="Rooms.php">
-                            <img src="../img/Audience_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                            <img src="../img/Audience_icon.png" class="d-inline-block" alt="">
                             Аудитории
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="News.php">
-                            <img src="../img/News_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                            <img src="../img/News_icon.png" class="d-inline-block" alt="">
                             Новости
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="Marks.html">
-                            <img src="../img/Marks_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                            <img src="../img/Marks_icon.png" class="d-inline-block" alt="">
                             Оценки
                         </a>
                     </li>

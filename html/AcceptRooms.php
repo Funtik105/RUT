@@ -22,7 +22,7 @@
             <div class="offcanvas-body" style="background-color: #163E73">
                 <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 ">
                     <li class="nav-item">
-                        <a class="navbar-brand" href="TimeTable.html">
+                        <a class="navbar-brand" href="Timetable.php">
                             <img src="../img/Timetable_icon.png" class="d-inline-block" alt="">
                             Расписание
                         </a>

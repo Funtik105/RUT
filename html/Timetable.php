@@ -1,3 +1,21 @@
+<?php
+
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+$jsonData = file_get_contents("http://109.120.181.142/api/timetables?page=". $current_page);
+
+// Декодирование JSON-данных в ассоциативный массив
+$data = json_decode($jsonData, true);
+
+$total_pages = $data['hydra:view']['hydra:last'];
+
+// Вывод ссылок на страницы
+for ($page = 1; $page <= $total_pages; $page++) {
+    // Проверка, является ли текущая страница активной
+    $active_class = ($page == $current_page) ? 'active' : '';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,70 +183,131 @@
       <th scope="col">Группа</th>
       <th scope="col">Предемет</th>
       <th scope="col">Преподаватель</th>
-      <th scope="col">Расположение</th>
+      <th scope="col">№ Аудитории</th>
     </tr>
     </thead>
     <!--End structure the table-->
 
     <!--Start Description the table-->
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>1</td>
-      <td>10</td>
-      <td>3</td>
-      <td>УВП-211</td>
-      <td>Цифровые технологии</td>
-      <td>Городников А.И.</td>
-      <td>1328</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>2</td>
-      <td>11</td>
-      <td>4</td>
-      <td>УВП-211</td>
-      <td>Теория веростяностей</td>
-      <td>Левчук Т.В.</td>
-      <td>1328</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>2</td>
-      <td>12</td>
-      <td>1</td>
-      <td>УВП-211</td>
-      <td>Технологии хранения данных</td>
-      <td>Новиков А.И.</td>
-      <td>1520</td>
-    </tr>
+    <?php foreach ($data['hydra:member'] as $item) {
+    ?>
+        <tr>
+          <th scope="row">1</th>
+          <td><?php $lessonNumber = $item['lesson']['lessonNumber'];
+              echo $lessonNumber?></td>
+          <td><?php $dayNumber = $item['day']['dayNumber'];
+              echo $dayNumber . "\n"?></td>
+          <td><?php $lessonNumber = $item['lesson']['lessonNumber'];
+              echo $lessonNumber . "\n"?></td>
+          <td><?php $squadName = $item['squad']['squadName'];
+              echo $squadName . "\n"?></td>
+          <td><?php $subjectName = $item['subject']['subjectName'];
+              echo $subjectName  ?></td>
+          <td><?php //TO DO ?></td>
+          <td><?php $locationNumber = $item['location'][0]['locationNumber'];
+              echo $locationNumber  ?></td>
+        </tr>
+    <?php
+    }
+    ?>
     </tbody>
   </table>
   <!--Start Description the table-->
 
   <!--Start Description the pages in end page-->
-  <nav aria-label="...">
-    <ul class="pagination">
-      <li class="page-item disabled">
-        <a class="page-link">Страницы:</a>
-      </li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item" aria-current="page">
-        <a class="page-link" href="#">2</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Следующая</a>
-      </li>
-    </ul>
-  </nav>
+    <?php
+        // Данные из JSON-файла (предполагается, что данные уже доступны в переменной $jsonData)
+        $jsonData = '{
+    "hydra:view": {
+        "@id": "/api/timetables?page=1",
+        "@type": "hydra:PartialCollectionView",
+        "hydra:first": "/api/timetables?page=1",
+        "hydra:last": "/api/timetables?page=69",
+        "hydra:next": "/api/timetables?page=2"
+    }
+}';
+
+        // Преобразование JSON в массив
+        $data = json_decode($jsonData, true);
+
+        // Получение значений страниц из данных
+        $currentPage = getPageNumber($data['hydra:view']['@id']);
+        $firstPage = getPageNumber($data['hydra:view']['hydra:first']);
+        $lastPage = getPageNumber($data['hydra:view']['hydra:last']);
+        $nextPage = getPageNumber($data['hydra:view']['hydra:next']);
+        $prevPage = $currentPage - 1;
+
+        // Функция для получения номера страницы из URL
+        function getPageNumber($url)
+        {
+            $queryParams = parse_url($url, PHP_URL_QUERY);
+            parse_str($queryParams, $params);
+            if (isset($params['page'])) {
+                return $params['page'];
+            }
+            return 1;
+        }
+
+        // Генерация ссылок для переключения между страницами
+        echo '<nav aria-label="...">';
+        echo '<ul class="pagination" id="pagination">';
+        echo '<li class="page-item disabled">';
+        echo '<a class="page-link">Страницы:</a>';
+        echo '</li>';
+
+        // Генерация ссылки на предыдущую страницу
+        if ($prevPage >= $firstPage) {
+            echo '<li class="page-item">';
+            echo '<a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=' . $prevPage . '">Предыдущая</a>';
+            echo '</li>';
+        }
+
+        // Генерация ссылок на страницы
+        for ($page = $firstPage; $page <= $lastPage; $page++) {
+            if ($page == $currentPage) {
+                echo '<li class="page-item active"><a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=' . $page . '">' . $page . '</a></li>';
+            } else {
+                echo '<li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=' . $page . '">' . $page . '</a></li>';
+            }
+        }
+
+        // Генерация ссылки на следующую страницу
+        if ($nextPage <= $lastPage) {
+            echo '<li class="page-item">';
+            echo '<a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=' . $nextPage . '">Следующая</a>';
+            echo '</li>';
+        }
+
+        echo '</ul>';
+        echo '</nav>';
+        ?>
   <!--End Description the pages in end page-->
 </div>
 
 <script src="../js/bootstrap.bundle.js"></script>
 <script>
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    // Получение ссылок на элементы списка
+    var pagination = document.getElementById('pagination').getElementsByTagName('li');
+
+    // Определение количества отображаемых элементов
+    var itemsToShow = 3;
+
+    // Определение текущего открытого элемента (предполагается, что значение известно)
+    var currentElementIndex = 1; // Индекс первого элемента
+
+    // Вычисление начального и конечного индексов для отображения
+    var startIndex = Math.max(0, currentElementIndex - itemsToShow + 1);
+    var endIndex = Math.min(startIndex + itemsToShow - 1, pagination.length - 1);
+
+    // Отображение только нужных элементов
+    for (var i = 0; i < pagination.length; i++) {
+        if (i >= startIndex && i <= endIndex) {
+            pagination[i].style.display = 'block';
+        } else {
+            pagination[i].style.display = 'none';
+        }
+    }
 </script>
 </body>
 </html>

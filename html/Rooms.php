@@ -11,6 +11,12 @@ $locationNumbers = array_column($data['hydra:member'], 'locationNumber');
 
 $total_pages = $data['hydra:view']['hydra:last'];
 
+
+// Вывод ссылок на страницы
+for ($page = 1; $page <= $total_pages; $page++) {
+    // Проверка, является ли текущая страница активной
+    $active_class = ($page == $current_page) ? 'active' : '';
+}
 ?>
 
 
@@ -21,7 +27,6 @@ $total_pages = $data['hydra:view']['hydra:last'];
     <title>Rooms</title>
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/Rooms.css">
 </head>
 <body>
@@ -37,39 +42,33 @@ $total_pages = $data['hydra:view']['hydra:last'];
             <div class="offcanvas-body" style="background-color: #163E73">
                 <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 ">
                     <li class="nav-item">
-                        <a class="navbar-brand" href="TimeTable.html">
-                            <img src="../img/Timetable_icon.png" class="d-inline-block" alt="">
+                        <a class="navbar-brand" href="Timetable.php">
+                            <img src="../img/Timetable_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Расписание
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="Users.php">
-                            <img src="../img/Users_icon.png" class="d-inline-block" alt="">
+                            <img src="../img/Users_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Пользователи
                         </a>
                     </li>
                     <li class="nav-item" style="background-color: #0a53be;">
-                        <a class="navbar-brand" href="Rooms.php">
-                            <img src="../img/Audience_icon.png" class="d-inline-block" alt="">
+                        <a class="navbar-brand" href="Rooms.html">
+                            <img src="../img/Audience_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Аудитории
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="News.php">
-                            <img src="../img/News_icon.png" class="d-inline-block" alt="">
+                            <img src="../img/News_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Новости
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="Marks.html">
-                            <img src="../img/Marks_icon.png" class="d-inline-block" alt="">
+                            <img src="../img/Marks_icon.png" width="30" height="50" class="d-inline-block" alt="">
                             Оценки
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="navbar-brand" href="AcceptRooms.php">
-                            <img src="../img/Marks_icon.png" class="d-inline-block" alt="">
-                            Бронирование
                         </a>
                     </li>
                     <li class="nav-item position-absolute bottom-0">
@@ -92,9 +91,9 @@ $total_pages = $data['hydra:view']['hydra:last'];
     <div class="btn-up btn-up_hide"></div>
 
     <div class="input-group rounded">
-        <input type="search" id="searchbar" onkeyup="searchRooms()" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
+        <input type="search" id="searchbar" onkeyup="search_rooms()" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-            <a href="#" style="text-decoration: none" id="liveToastBtn">
+            <a href="#" style="text-decoration: none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
@@ -103,20 +102,6 @@ $total_pages = $data['hydra:view']['hydra:last'];
 
     </div><br>
 
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="../img/Audience_icon.png" class="rounded me-2" alt="..." style="width: 50px;">
-                <strong class="me-auto">Броинрование</strong>
-                <small>1 минуту назад</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                Новое бронирование аудитории
-            </div>
-        </div>
-    </div>
-
     <div class="group">
 
         <div class="dropdown">
@@ -124,8 +109,8 @@ $total_pages = $data['hydra:view']['hydra:last'];
                 Сортировать
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" onclick="sortByName()">Сортировать названию</a></li>
-                <li><a class="dropdown-item" href="#" onclick="sortByAvailability()">Сортировать по занятости</a></li>
+                <li><a class="dropdown-item" href="#">Сортировать названию</a></li>
+                <li><a class="dropdown-item" href="#">Сортировать по занятости</a></li>
             </ul>
 
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -188,7 +173,7 @@ $total_pages = $data['hydra:view']['hydra:last'];
     </div>
     <?php foreach ($locationNumbers as $item) {
     ?>
-    <div class="modal fade" id="exampleModal<?php echo $item; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -233,7 +218,6 @@ $total_pages = $data['hydra:view']['hydra:last'];
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary mx-auto">Добавить</button>
-                    <button type="button" class="btn btn-secondary mx-auto btn1">Удалить</button>
                 </div>
             </div>
         </div>
@@ -245,13 +229,13 @@ $total_pages = $data['hydra:view']['hydra:last'];
     <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
         <?php foreach ($locationNumbers as $item) {
             ?>
-            <div class="col" id="location-<?php echo $item; ?>">
+            <div class="col">
                 <div class="card">
                     <img src="../img/aud.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo "Аудитория №" . $item . "<br>"; ?></h5>
                         <p class="card-text">Статус: Свободно</p>
-                        <button type="button" class="btn btn-primary btn-lg" data-bs-target="#exampleModal<?php echo $item; ?>" data-bs-toggle="modal">Подробнее</button>
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-target="#exampleModal5" data-bs-toggle="modal">Подробнее</button>
                     </div>
                 </div>
             </div>
@@ -265,20 +249,13 @@ $total_pages = $data['hydra:view']['hydra:last'];
             <li class="page-item disabled">
                 <a class="page-link">Страницы:</a>
             </li>
-            <?php
-
-            // Генерация элементов пагинации
-            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-            for ($i = 1; $i <= 7; $i++) {
-                // Текущая страница (ваша логика для получения текущей страницы)
-                $active_class = ($i == $current_page) ? "active" : ""; // Проверка, является ли $i текущей страницей
-                ?>
-                <li class="page-item <?php echo $active_class; ?>">
-                    <a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                </li>
-                <?php
-            }
-            ?>
+            <li class="page-item active"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=1">1</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=2">2</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=3">3</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=4">4</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=5">5</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=6">6</a></li>
+            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=7">7</a></li>
             <li class="page-item">
                 <a class="page-link" href="#">Следующая</a>
             </li>
@@ -291,8 +268,23 @@ $total_pages = $data['hydra:view']['hydra:last'];
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    // JavaScript code
+    function search_rooms() {
+        let input = document.getElementById('searchbar').value
+        input=input.toLowerCase();
+        let x = document.getElementsByClassName('col');
+
+        for (i = 0; i < x.length; i++) {
+            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display="none";
+            }
+            else {
+                x[i].style.display="list-item";
+            }
+        }
+    }
+
 </script>
-<script src="../js/Rooms.js"></script>
-<script src="../js/home.js"></script>
 </body>
 </html>

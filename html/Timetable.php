@@ -216,98 +216,39 @@ for ($page = 1; $page <= $total_pages; $page++) {
   <!--Start Description the table-->
 
   <!--Start Description the pages in end page-->
-    <?php
-        // Данные из JSON-файла (предполагается, что данные уже доступны в переменной $jsonData)
-        $jsonData = '{
-    "hydra:view": {
-        "@id": "/api/timetables?page=1",
-        "@type": "hydra:PartialCollectionView",
-        "hydra:first": "/api/timetables?page=1",
-        "hydra:last": "/api/timetables?page=69",
-        "hydra:next": "/api/timetables?page=2"
-    }
-}';
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item disabled">
+        <a class="page-link">Страницы:</a>
+      </li>
+      <?php
+      $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-        // Преобразование JSON в массив
-        $data = json_decode($jsonData, true);
+      // Определение диапазона страниц
+      $start_page = max(1, $current_page - 3);
+      $end_page = min($start_page + 6, 63);
 
-        // Получение значений страниц из данных
-        $currentPage = getPageNumber($data['hydra:view']['@id']);
-        $firstPage = getPageNumber($data['hydra:view']['hydra:first']);
-        $lastPage = getPageNumber($data['hydra:view']['hydra:last']);
-        $nextPage = getPageNumber($data['hydra:view']['hydra:next']);
-        $prevPage = $currentPage - 1;
-
-        // Функция для получения номера страницы из URL
-        function getPageNumber($url)
-        {
-            $queryParams = parse_url($url, PHP_URL_QUERY);
-            parse_str($queryParams, $params);
-            if (isset($params['page'])) {
-                return $params['page'];
-            }
-            return 1;
-        }
-
-        // Генерация ссылок для переключения между страницами
-        echo '<nav aria-label="...">';
-        echo '<ul class="pagination" id="pagination">';
-        echo '<li class="page-item disabled">';
-        echo '<a class="page-link">Страницы:</a>';
-        echo '</li>';
-
-        // Генерация ссылки на предыдущую страницу
-        if ($prevPage >= $firstPage) {
-            echo '<li class="page-item">';
-            echo '<a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=' . $prevPage . '">Предыдущая</a>';
-            echo '</li>';
-        }
-
-        // Генерация ссылок на страницы
-        for ($page = $firstPage; $page <= $lastPage; $page++) {
-            if ($page == $currentPage) {
-                echo '<li class="page-item active"><a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=' . $page . '">' . $page . '</a></li>';
-            } else {
-                echo '<li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=' . $page . '">' . $page . '</a></li>';
-            }
-        }
-
-        // Генерация ссылки на следующую страницу
-        if ($nextPage <= $lastPage) {
-            echo '<li class="page-item">';
-            echo '<a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=' . $nextPage . '">Следующая</a>';
-            echo '</li>';
-        }
-
-        echo '</ul>';
-        echo '</nav>';
+      for ($i = $start_page; $i <= $end_page; $i++) {
+        $active_class = ($i == $current_page) ? "active" : "";
         ?>
-  <!--End Description the pages in end page-->
+        <li class="page-item <?php echo $active_class; ?>">
+          <a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+        </li>
+        <?php
+      }
+      ?>
+      <li class="page-item">
+        <a class="page-link" href="#">Следующая</a>
+      </li>
+    </ul>
+  </nav>
 </div>
 
 <script src="../js/bootstrap.bundle.js"></script>
 <script>
-    // Получение ссылок на элементы списка
-    var pagination = document.getElementById('pagination').getElementsByTagName('li');
-
-    // Определение количества отображаемых элементов
-    var itemsToShow = 3;
-
-    // Определение текущего открытого элемента (предполагается, что значение известно)
-    var currentElementIndex = 1; // Индекс первого элемента
-
-    // Вычисление начального и конечного индексов для отображения
-    var startIndex = Math.max(0, currentElementIndex - itemsToShow + 1);
-    var endIndex = Math.min(startIndex + itemsToShow - 1, pagination.length - 1);
-
-    // Отображение только нужных элементов
-    for (var i = 0; i < pagination.length; i++) {
-        if (i >= startIndex && i <= endIndex) {
-            pagination[i].style.display = 'block';
-        } else {
-            pagination[i].style.display = 'none';
-        }
-    }
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
+<script src="../js/home.js"></script>
 </body>
 </html>

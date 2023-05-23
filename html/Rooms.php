@@ -11,12 +11,41 @@ $locationNumbers = array_column($data['hydra:member'], 'locationNumber');
 
 $total_pages = $data['hydra:view']['hydra:last'];
 
+// method for Add new room
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Получите данные аудитории из POST-запроса
+    $locationNumber = $_POST['locationNumber']; // Здесь предполагается, что номер аудитории передается в поле с именем "locationNumber"
 
-// Вывод ссылок на страницы
-for ($page = 1; $page <= $total_pages; $page++) {
-    // Проверка, является ли текущая страница активной
-    $active_class = ($page == $current_page) ? 'active' : '';
+    // Загрузите содержимое JSON файла
+    $jsonString = file_get_contents('http://109.120.181.142/api/locations');
+
+    // Преобразуйте JSON строку в ассоциативный массив
+    $data = json_decode($jsonString, true);
+
+    // Создайте новый объект аудитории
+    $newLocation = [
+        '@id' => '/api/locations/' . uniqid(), // Генерируйте уникальный идентификатор аудитории
+        '@type' => 'Location',
+        'locationNumber' => $locationNumber,
+        'timetables' => []
+    ];
+
+    // Добавьте новую аудиторию в массив данных
+    $data['hydra:member'][] = $newLocation;
+
+    // Преобразуйте данные обратно в JSON формат
+    $updatedJsonString = json_encode($data, JSON_PRETTY_PRINT);
+
+    // Сохраните обновленные данные в JSON файл
+    file_put_contents('http://109.120.181.142/api/locations', $updatedJsonString);
+
+    // Отправьте ответ об успешном добавлении аудитории
+    http_response_code(201); // Код 201 означает "Создано"
+    echo json_encode(['message' => 'Аудитория успешно добавлена']);
+    exit;
 }
+
+
 ?>
 
 
@@ -27,6 +56,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
     <title>Rooms</title>
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/Rooms.css">
 </head>
 <body>
@@ -42,33 +72,39 @@ for ($page = 1; $page <= $total_pages; $page++) {
             <div class="offcanvas-body" style="background-color: #163E73">
                 <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 ">
                     <li class="nav-item">
-                        <a class="navbar-brand" href="Timetable.php">
-                            <img src="../img/Timetable_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                        <a class="navbar-brand" href="TimeTable.php">
+                            <img src="../img/Timetable_icon.png" class="d-inline-block" alt="">
                             Расписание
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="Users.php">
-                            <img src="../img/Users_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                            <img src="../img/Users_icon.png" class="d-inline-block" alt="">
                             Пользователи
                         </a>
                     </li>
                     <li class="nav-item" style="background-color: #0a53be;">
-                        <a class="navbar-brand" href="Rooms.html">
-                            <img src="../img/Audience_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                        <a class="navbar-brand" href="Rooms.php">
+                            <img src="../img/Audience_icon.png" class="d-inline-block" alt="">
                             Аудитории
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="News.php">
-                            <img src="../img/News_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                            <img src="../img/News_icon.png" class="d-inline-block" alt="">
                             Новости
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="Marks.html">
-                            <img src="../img/Marks_icon.png" width="30" height="50" class="d-inline-block" alt="">
+                            <img src="../img/Marks_icon.png" class="d-inline-block" alt="">
                             Оценки
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="AcceptRooms.php">
+                            <img src="../img/Marks_icon.png" class="d-inline-block" alt="">
+                            Бронирование
                         </a>
                     </li>
                     <li class="nav-item position-absolute bottom-0">
@@ -91,9 +127,9 @@ for ($page = 1; $page <= $total_pages; $page++) {
     <div class="btn-up btn-up_hide"></div>
 
     <div class="input-group rounded">
-        <input type="search" id="searchbar" onkeyup="search_rooms()" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
+        <input type="search" id="searchbar" onkeyup="searchRooms()" class="form-control rounded" placeholder="Поиск" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-            <a href="#" style="text-decoration: none">
+            <a href="#" style="text-decoration: none" id="liveToastBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
@@ -102,6 +138,20 @@ for ($page = 1; $page <= $total_pages; $page++) {
 
     </div><br>
 
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../img/Audience_icon.png" class="rounded me-2" alt="..." style="width: 50px;">
+                <strong class="me-auto">Броинрование</strong>
+                <small>1 минуту назад</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Новое бронирование аудитории
+            </div>
+        </div>
+    </div>
+
     <div class="group">
 
         <div class="dropdown">
@@ -109,8 +159,8 @@ for ($page = 1; $page <= $total_pages; $page++) {
                 Сортировать
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Сортировать названию</a></li>
-                <li><a class="dropdown-item" href="#">Сортировать по занятости</a></li>
+                <li><a class="dropdown-item" href="#" onclick="sortByName()">Сортировать названию</a></li>
+                <li><a class="dropdown-item" href="#" onclick="sortByAvailability()">Сортировать по занятости</a></li>
             </ul>
 
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -123,105 +173,108 @@ for ($page = 1; $page <= $total_pages; $page++) {
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление аудитории</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Название</label>
+        <form method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление аудитории</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">Описание</label>
-                    </div>
-                    <select class="form-select mb-3" aria-label="Default select example">
-                        <option selected>Выбрать тип аудитории</option>
-                        <option value="1">Лекционная</option>
-                        <option value="2">Практическая</option>
-                        <option value="3">Лабараторная</option>
-                    </select>
-                    <label for="customRange1" class="form-label mb-3">Количество мест</label>
-                    <input type="range" class="form-range" id="customRange1" min="1" max="100" step="0.5">
-                    <label for="customRange1" class="form-label mb-3">Количество компьютеров</label>
-                    <input type="range" class="form-range" id="customRange2">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" >
-                        <label class="form-check-label">Наличие компьютеров</label>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" name="locationNumber" placeholder="name@example.com">
+                            <label for="floatingInput">Номер аудитории</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Описание</label>
+                        </div>
+                        <select class="form-select mb-3" aria-label="Default select example">
+                            <option selected>Выбрать тип аудитории</option>
+                            <option value="1">Лекционная</option>
+                            <option value="2">Практическая</option>
+                            <option value="3">Лабараторная</option>
+                        </select>
+                        <label for="customRange1" class="form-label mb-3">Количество мест</label>
+                        <input type="range" class="form-range" id="customRange1" min="1" max="100" step="0.5">
+                        <label for="customRange1" class="form-label mb-3">Количество компьютеров</label>
+                        <input type="range" class="form-range" id="customRange2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" >
+                            <label class="form-check-label">Наличие компьютеров</label>
 
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch">
+                            <label class="form-check-label">Наличие интерактивной доски</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch">
+                            <label class="form-check-label">Наличие проектора</label>
+                        </div>
+                        <div class="mb-3" style="padding-top: 15px">
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
                     </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch">
-                        <label class="form-check-label">Наличие интерактивной доски</label>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary mx-auto">Добавить</button>
                     </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch">
-                        <label class="form-check-label">Наличие проектора</label>
-                    </div>
-                    <div class="mb-3" style="padding-top: 15px">
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary mx-auto">Добавить</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <?php foreach ($locationNumbers as $item) {
-    ?>
-    <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Добавление аудитории</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" value="<?php echo $item ?>" placeholder="name@example.com">
-                        <label for="floatingInput">Название</label>
+        ?>
+        <div class="modal fade" id="exampleModal<?php echo $item; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Редактирование аудитории</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">Описание</label>
-                    </div>
-                    <select class="form-select mb-3" aria-label="Default select example">
-                        <option selected>Выбрать тип аудитории</option>
-                        <option value="1">Лекционная</option>
-                        <option value="2">Практическая</option>
-                        <option value="3">Лабараторная</option>
-                    </select>
-                    <label for="customRange1" class="form-label mb-3">Количество мест</label>
-                    <input type="range" class="form-range" id="customRange1" min="1" max="100" step="0.5">
-                    <label for="customRange1" class="form-label mb-3">Количество компьютеров</label>
-                    <input type="range" class="form-range" id="customRange2">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" >
-                        <label class="form-check-label">Наличие компьютеров</label>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" value="<?php echo $item ?>" placeholder="name@example.com">
+                            <label for="floatingInput">Название</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Описание</label>
+                        </div>
+                        <select class="form-select mb-3" aria-label="Default select example">
+                            <option selected>Выбрать тип аудитории</option>
+                            <option value="1">Лекционная</option>
+                            <option value="2">Практическая</option>
+                            <option value="3">Лабараторная</option>
+                        </select>
+                        <label for="customRange1" class="form-label mb-3">Количество мест</label>
+                        <input type="range" class="form-range" id="customRange1" min="1" max="100" step="0.5">
+                        <label for="customRange1" class="form-label mb-3">Количество компьютеров</label>
+                        <input type="range" class="form-range" id="customRange2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" >
+                            <label class="form-check-label">Наличие компьютеров</label>
 
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch">
+                            <label class="form-check-label">Наличие интерактивной доски</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch">
+                            <label class="form-check-label">Наличие проектора</label>
+                        </div>
+                        <div class="mb-3" style="padding-top: 15px">
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
                     </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch">
-                        <label class="form-check-label">Наличие интерактивной доски</label>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary mx-auto">Добавить</button>
+                        <button type="button" class="btn btn-secondary mx-auto btn1">Удалить</button>
                     </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch">
-                        <label class="form-check-label">Наличие проектора</label>
-                    </div>
-                    <div class="mb-3" style="padding-top: 15px">
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary mx-auto">Добавить</button>
                 </div>
             </div>
         </div>
-    </div>
         <?php
     }
     ?>
@@ -229,17 +282,17 @@ for ($page = 1; $page <= $total_pages; $page++) {
     <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
         <?php foreach ($locationNumbers as $item) {
             ?>
-            <div class="col">
+            <div class="col" id="location-<?php echo $item; ?>">
                 <div class="card">
                     <img src="../img/aud.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo "Аудитория №" . $item . "<br>"; ?></h5>
                         <p class="card-text">Статус: Свободно</p>
-                        <button type="button" class="btn btn-primary btn-lg" data-bs-target="#exampleModal5" data-bs-toggle="modal">Подробнее</button>
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-target="#exampleModal<?php echo $item; ?>" data-bs-toggle="modal">Подробнее</button>
                     </div>
                 </div>
             </div>
-        <?php
+            <?php
         }
         ?>
     </div>
@@ -249,42 +302,37 @@ for ($page = 1; $page <= $total_pages; $page++) {
             <li class="page-item disabled">
                 <a class="page-link">Страницы:</a>
             </li>
-            <li class="page-item active"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=2">2</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=3">3</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=4">4</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=5">5</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=6">6</a></li>
-            <li class="page-item"><a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=7">7</a></li>
+            <?php
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+            // Определение диапазона страниц
+            $start_page = max(1, $current_page - 3);
+            $end_page = min($start_page + 6, 63);
+
+            for ($i = $start_page; $i <= $end_page; $i++) {
+                $active_class = ($i == $current_page) ? "active" : "";
+                ?>
+                <li class="page-item <?php echo $active_class; ?>">
+                    <a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+                <?php
+            }
+            ?>
             <li class="page-item">
                 <a class="page-link" href="#">Следующая</a>
             </li>
         </ul>
     </nav>
 
+
 </div>
 
-    <script src="../js/bootstrap.bundle.js"></script>
+<script src="../js/bootstrap.bundle.js"></script>
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
-    // JavaScript code
-    function search_rooms() {
-        let input = document.getElementById('searchbar').value
-        input=input.toLowerCase();
-        let x = document.getElementsByClassName('col');
-
-        for (i = 0; i < x.length; i++) {
-            if (!x[i].innerHTML.toLowerCase().includes(input)) {
-                x[i].style.display="none";
-            }
-            else {
-                x[i].style.display="list-item";
-            }
-        }
-    }
-
 </script>
+<script src="../js/Rooms.js"></script>
+<script src="../js/home.js"></script>
 </body>
 </html>

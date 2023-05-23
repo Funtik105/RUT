@@ -237,8 +237,13 @@ for ($page = 1; $page <= $total_pages; $page++) {
         <?php
       }
       ?>
+      <?php
+      $next_page = $current_page + 1;
+      $next_page_url = "http://localhost:8888/RUT/html/TimeTable.php?page=" . $next_page;
+      ?>
+
       <li class="page-item">
-        <a class="page-link" href="#">Следующая</a>
+        <a class="page-link" href="<?php echo $next_page_url; ?>">Следующая</a>
       </li>
     </ul>
   </nav>

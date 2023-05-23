@@ -171,205 +171,87 @@ $total_pages = $data['hydra:member'];
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Изменить инфориацию</a></li>
-                            <li><a class="dropdown-item" href="#">Удалить</a></li>
-                        </ul>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">5</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">6</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">7</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">8</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">9</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">10</th>
-                <td>
-                    <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
-                    <a href="#">
-                        Городников Александр Игорьевич
-                    </a>
-                </td>
-                <td>УВП-211</td>
-                <td>8390483</td>
-                <td>
-                    <a href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
+            <?php
+            foreach ($data['hydra:member'] as $index => $item) {
+                $idString = $item['@id']; // Получение строки "@id"
+                $startPosition = strrpos($idString, '/') + 1;
+                $id = substr($idString, $startPosition); // Извлечение номера id
+
+                $firstName = $item['firstName']; // Получение имени пользователя
+                $lastName = $item['lastName']; // Получение фамилии пользователя
+                $middleName = $item['middleName']; // Получение отчества пользователя
+
+                // Соединение имени, фамилии и отчества пользователя
+                $fullName = $lastName . ' ' . $firstName . ' ' . $middleName;
+                ?>
+                <tr>
+                    <th scope="row"><?php echo $id; ?></th>
+                    <td>
+                        <img src="../img/gotod.jpg" class="img-thumbnail" alt="...">
+                        <a href="#">
+                            <?php echo $fullName; ?>
+                        </a>
+                    </td>
+                    <td>УВП-211</td>
+                    <td>8390483</td>
+                    <td>
+                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Изменить информацию</a></li>
+                                <li><a class="dropdown-item" href="#">Удалить</a></li>
+                            </ul>
+                        </a>
+                    </td>
+                </tr>
+                <?php
+            }
+            ?>
             </tbody>
         </table>
     </div>
+
     <nav aria-label="...">
         <ul class="pagination">
             <li class="page-item disabled">
                 <a class="page-link">Страницы:</a>
             </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item" aria-current="page">
-                <a class="page-link" href="#">2</a>
+            <?php
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+            // Определение диапазона страниц
+            $start_page = max(1, $current_page - 3);
+            $end_page = min($start_page + 6, 63);
+
+            // Отображение всегда первой страницы
+            ?>
+            <li class="page-item <?php echo ($current_page == 1) ? 'active' : ''; ?>">
+                <a class="page-link" href="http://localhost:8888/RUT/html/TimeTable.php?page=1">1</a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <?php
+
+            for ($i = $start_page; $i <= $end_page; $i++) {
+                if ($i == 1) {
+                    continue; // Пропуск первой страницы, так как она уже отображена
+                }
+
+                $active_class = ($i == $current_page) ? "active" : "";
+                ?>
+                <li class="page-item <?php echo $active_class; ?>">
+                    <a class="page-link" href="http://localhost:8888/RUT/html/TimeTable.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+                <?php
+            }
+
+            // Определение ссылки для кнопки "Следующая"
+            $next_page = $current_page + 1;
+            $next_page_url = "http://localhost:8888/RUT/html/TimeTable.php?page=" . $next_page;
+            ?>
+
             <li class="page-item">
-                <a class="page-link" href="#">Следующая</a>
+                <a class="page-link" href="<?php echo $next_page_url; ?>">Следующая</a>
             </li>
         </ul>
     </nav>

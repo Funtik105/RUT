@@ -307,9 +307,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Определение диапазона страниц
             $start_page = max(1, $current_page - 3);
-            $end_page = min($start_page + 6, 63);
+            $end_page = min($start_page + 6, 7);
+
+            // Отображение всегда первой страницы
+            ?>
+            <li class="page-item <?php echo ($current_page == 1) ? 'active' : ''; ?>">
+                <a class="page-link" href="http://localhost:8888/RUT/html/Rooms.php?page=1">1</a>
+            </li>
+            <?php
 
             for ($i = $start_page; $i <= $end_page; $i++) {
+                if ($i == 1) {
+                    continue; // Пропуск первой страницы, так как она уже отображена
+                }
+
                 $active_class = ($i == $current_page) ? "active" : "";
                 ?>
                 <li class="page-item <?php echo $active_class; ?>">
@@ -317,9 +328,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </li>
                 <?php
             }
+
+            // Определение ссылки для кнопки "Следующая"
+            $next_page = $current_page + 1;
+            $next_page_url = "http://localhost:8888/RUT/html/Rooms.php?page=" . $next_page;
             ?>
+
             <li class="page-item">
-                <a class="page-link" href="#">Следующая</a>
+                <a class="page-link" href="<?php echo $next_page_url; ?>">Следующая</a>
             </li>
         </ul>
     </nav>

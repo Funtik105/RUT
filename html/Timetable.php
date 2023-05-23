@@ -190,27 +190,33 @@ for ($page = 1; $page <= $total_pages; $page++) {
 
     <!--Start Description the table-->
     <tbody>
-    <?php foreach ($data['hydra:member'] as $item) {
-    ?>
-        <tr>
-          <th scope="row">1</th>
-          <td><?php $lessonNumber = $item['lesson']['lessonNumber'];
-              echo $lessonNumber?></td>
-          <td><?php $dayNumber = $item['day']['dayNumber'];
-              echo $dayNumber . "\n"?></td>
-          <td><?php $lessonNumber = $item['lesson']['lessonNumber'];
-              echo $lessonNumber . "\n"?></td>
-          <td><?php $squadName = $item['squad']['squadName'];
-              echo $squadName . "\n"?></td>
-          <td><?php $subjectName = $item['subject']['subjectName'];
-              echo $subjectName  ?></td>
-          <td><?php //TO DO ?></td>
-          <td><?php $locationNumber = $item['location'][0]['locationNumber'];
-              echo $locationNumber  ?></td>
-        </tr>
     <?php
+    foreach ($data['hydra:member'] as $index => $item) {
+      $idString = $item['@id']; // Получение строки "@id"
+      $startPosition = strrpos($idString, '/') + 1;
+      $id = substr($idString, $startPosition); // Извлечение номера id
+
+      ?>
+      <tr>
+        <th scope="row"><?php echo $id; ?></th>
+        <td><?php $lessonNumber = $item['lesson']['lessonNumber'];
+          echo $lessonNumber ?></td>
+        <td><?php $dayNumber = $item['day']['dayNumber'];
+          echo $dayNumber . "\n" ?></td>
+        <td><?php $lessonNumber = $item['lesson']['lessonNumber'];
+          echo $lessonNumber . "\n" ?></td>
+        <td><?php $squadName = $item['squad']['squadName'];
+          echo $squadName . "\n" ?></td>
+        <td><?php $subjectName = $item['subject']['subjectName'];
+          echo $subjectName ?></td>
+        <td><?php //TO DO ?></td>
+        <td><?php $locationNumber = $item['location'][0]['locationNumber'];
+          echo $locationNumber ?></td>
+      </tr>
+      <?php
     }
     ?>
+
     </tbody>
   </table>
   <!--Start Description the table-->
@@ -228,16 +234,27 @@ for ($page = 1; $page <= $total_pages; $page++) {
       $start_page = max(1, $current_page - 3);
       $end_page = min($start_page + 6, 63);
 
+      // Отображение всегда первой страницы
+      ?>
+      <li class="page-item <?php echo ($current_page == 1) ? 'active' : ''; ?>">
+        <a class="page-link" href="http://localhost:8888/RUT/html/TimeTable.php?page=1">1</a>
+      </li>
+      <?php
+
       for ($i = $start_page; $i <= $end_page; $i++) {
+        if ($i == 1) {
+          continue; // Пропуск первой страницы, так как она уже отображена
+        }
+
         $active_class = ($i == $current_page) ? "active" : "";
         ?>
         <li class="page-item <?php echo $active_class; ?>">
-          <a class="page-link" href="http://localhost:8888/RUT/html/Timetable.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+          <a class="page-link" href="http://localhost:8888/RUT/html/TimeTable.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
         </li>
         <?php
       }
-      ?>
-      <?php
+
+      // Определение ссылки для кнопки "Следующая"
       $next_page = $current_page + 1;
       $next_page_url = "http://localhost:8888/RUT/html/TimeTable.php?page=" . $next_page;
       ?>
@@ -247,6 +264,7 @@ for ($page = 1; $page <= $total_pages; $page++) {
       </li>
     </ul>
   </nav>
+
 </div>
 
 <script src="../js/bootstrap.bundle.js"></script>

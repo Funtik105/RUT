@@ -228,7 +228,7 @@ $total_pages = $data['hydra:member'];
             // Отображение всегда первой страницы
             ?>
             <li class="page-item <?php echo ($current_page == 1) ? 'active' : ''; ?>">
-                <a class="page-link" href="http://localhost:8888/RUT/html/TimeTable.php?page=1">1</a>
+                <a class="page-link" href="http://localhost:8888/RUT/html/Users.php?page=1">1</a>
             </li>
             <?php
 
@@ -240,14 +240,14 @@ $total_pages = $data['hydra:member'];
                 $active_class = ($i == $current_page) ? "active" : "";
                 ?>
                 <li class="page-item <?php echo $active_class; ?>">
-                    <a class="page-link" href="http://localhost:8888/RUT/html/TimeTable.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    <a class="page-link" href="http://localhost:8888/RUT/html/Users.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                 </li>
                 <?php
             }
 
             // Определение ссылки для кнопки "Следующая"
             $next_page = $current_page + 1;
-            $next_page_url = "http://localhost:8888/RUT/html/TimeTable.php?page=" . $next_page;
+            $next_page_url = "http://localhost:8888/RUT/html/Users.php?page=" . $next_page;
             ?>
 
             <li class="page-item">
